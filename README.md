@@ -7,5 +7,8 @@ Our plugin will be able to implement the JS library [ChartJS](https://www.chartj
 
 ## Features
 ✨ Implementing multiple type of chart (bar charts, line charts, area chart, pie chart...)
+
 ✨ Using chart from `short code` and `widget`
+
 ✨ Change the datas displayed by the charts (using database)
+
