@@ -19,9 +19,9 @@ Author URI: https://turtlecorp.fr
  * In this section we'll add a page to admin pannel for plugin usage and description
  */
 
-add_action('admin_menu', 'test_plugin_setup_menu');
+add_action('admin_menu', 'admin_page');
 
-function test_plugin_setup_menu() {
+function admin_page() {
   add_menu_page('ChartJS ESGI', 'ChartJS ESGI', 'manage_options', 'chartjs-esgi', 'chartJS_ESGI_page', 'dashicons-chart-area');
 }
 
