@@ -13,6 +13,70 @@ Version: 1.0.0
 Author URI: https://turtlecorp.fr
 */
 
+/**
+ * ADMIN PAGE
+ * 
+ * In this section we'll add a page to admin pannel for plugin usage and description
+ */
+
+add_action('admin_menu', 'test_plugin_setup_menu');
+
+function test_plugin_setup_menu() {
+  add_menu_page('ChartJS ESGI', 'ChartJS ESGI', 'manage_options', 'chartjs-esgi', 'chartJS_ESGI_page', 'dashicons-chart-area');
+}
+
+function chartJS_ESGI_page() {
+  echo "<h1>Welcome to ChartJS ESGI !</h1>
+<p><em>Plugin created by <a href=\"https://github.com/MisterGoodDeal\">Milan CAMUS</a> and <a href=\"https://github.com/Haborym\">Arthur VADROT</a>.</em></p>
+<p>In this page you will find everything you need to know about this plugin.</p>
+<p>&nbsp;</p>
+<h3>Charts available</h3>
+<p>With our plugin you have access to five different types of charts :</p>
+<ol>
+<li>Bar chart&nbsp; : vertical bars with multiple values and colors</li>
+<li>Line chart : horizontal line with multiple dots representing values&nbsp;</li>
+<li>Doughnut chart : 360&deg; chart with a hole in the middle representing one or more values.</li>
+<li>Pie chart : 360&deg; chart representing one or more values.</li>
+<li>Area chart : 360&deg; chart representing one or more values in polar style.</li>
+</ol>
+<p>&nbsp;</p>
+<h3>Parameters</h3>
+<p><em>The following parameters are available for every charts</em></p>
+<div>
+<div><code>width</code>: Width of the canavas (default value is '400')</div>
+<div><code>height</code>: Height of the canevas (default value is '400')</div>
+<div><code>chartlabel</code>: Label display above the chart (default value is 'Chart Label')</div>
+<div><code>labels</code>: Labels of every single values (default value is \"'Label 1', 'Label 2', 'Label 3', 'Label 4', 'Label 5'\")</div>
+<div><code>values</code>: Values displayed on the chart (default value is 5 random values between 10 and 50)</div>
+<div><code>colors</code>: Colors of each values (default value is 5 random colors at 0.2 opacity)</div>
+<div><code>bordercolors</code>: Border colors of each values (default value is 5 random colors)</div>
+<div><code>borderwidth</code>: Width in pixels of the values border (default value is '1')</div>
+<div>&nbsp;</div>
+<h3>Usage with shortcodes</h3>
+<ol>
+<li>Bar chart&nbsp; : <code>[chart_bar]</code></li>
+<li>Line chart :<code> [chart_line]</code></li>
+<li>Doughnut chart : <code>[chart_doughnut]</code></li>
+<li>Pie chart : <code>[chart_pie]</code></li>
+<li>Area chart : <code>[chart_area]</code></li>
+</ol>
+<p><span style=\"text-decoration: underline;\">Example :</span></p>
+<p><code>[chart_bar </code></p>
+<p>&nbsp; <code>width=\"600\" </code></p>
+<p>&nbsp; <code>height=\"400\" </code></p>
+<p>&nbsp; <code>chartlabel=\"Label de test\" </code></p>
+<p>&nbsp; <code>labels=\"'Bonjour', 'Test', '123 Soleil'\" </code></p>
+<p>&nbsp; <code>values=\"12,34,17\" </code></p>
+<p>&nbsp; <code>colors=\"'rgba(0,0,0,0.2)','rgba(23,75,255,0.2)','rgba(76,54,32,0.2)'\" </code></p>
+<p>&nbsp; <code>bordercolors=\"'rgba(0,0,0,1)','rgba(23,75,255,1)','rgba(76,54,32,1)'\"</code></p>
+<p><code>&nbsp;borderwith=\"2\"</code></p>
+<p><code> ]</code></p>
+<p>&nbsp;</p>
+<h3>Usage with widgets</h3>
+<p>TODO</p>
+</div>";
+}
+
 
 /**
  * SHORTCODES
