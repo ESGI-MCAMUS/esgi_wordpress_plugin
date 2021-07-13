@@ -10,5 +10,7 @@ Our plugin will be able to implement the JS library [ChartJS](https://www.chartj
 
 ✨ Using chart from `short code` and `widget`
 
-✨ Change the datas displayed by the charts (using database)
+✨ Change the datas displayed by the charts
+
+✨ Display a description page in the admin panel for the plugin
 
