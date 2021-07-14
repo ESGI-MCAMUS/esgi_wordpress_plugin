@@ -325,6 +325,206 @@ add_shortcode('chart_area', 'shortcode_chartarea');
  * In this section, we are creating the widgets for all the avalaible charts
  */
 
+add_action('widgets_init', 'chartJS_ESGI_init');
+function chartJS_ESGI_init() {
+  register_widget("widgetChartJS_ESGI");
+}
+
+class widgetChartJS_ESGI extends WP_Widget {
+
+  // Constructeur du widgets
+  function __construct() {
+    parent::__construct(
+      // widget ID
+      'chartjs_esgi',
+      // widget name
+      __('ChartJS ESGI', 'chartjs_esgi_domain'),
+      // widget description
+      array('description' => __('Implement Charts with widgets', 'chartjs_esgi_domain'),)
+    );
+  }
+
+  //  Mise en forme
+  function widget($args, $instance) {
+    $chartName = generateRandomString();
+    echo  "
+  <canvas id='chartESGI_" . $chartName . "' width='" . $instance["width"] . "' height='" . $instance["height"] . "'></canvas>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.4.1/chart.min.js' integrity='sha512-5vwN8yor2fFT9pgPS9p9R7AszYaNn0LkQElTXIsZFCL7ucT8zDCAqlQXDdaqgA1mZP47hdvztBMsIoFxq/FyyQ==' crossorigin='anonymous' referrerpolicy='no-referrer'></script>
+  <script>
+  var ctx = document.getElementById('chartESGI_" . $chartName . "').getContext('2d');
+  var chartESGI_" . $chartName . " = new Chart(ctx, {
+      type: '" . $instance["type"] . "',
+      data: {
+          labels: [" . $instance["labels"] . "],
+          datasets: [{
+              label: '" . $instance["chartlabel"] . "',
+              data: [" . $instance["values"] . "],
+              backgroundColor: [" . $instance["colors"] . "],
+              borderColor: [" . $instance["bordercolors"] . "],
+              borderWidth: " . $instance["borderwidth"] . "
+          }]
+      },
+      options: {
+          scales: {
+              y: {
+                  beginAtZero: true
+              }
+          }
+      }
+  });
+  </script>";
+  }
+
+  // Récupération des paramètres
+  function update($new_instance, $old_instance) {
+    $instance = $old_instance;
+
+    $instance['width'] = $new_instance['width'];
+    $instance['height'] = $new_instance['height'];
+    $instance['chartlabel'] = $new_instance['chartlabel'];
+    $instance['labels'] = $new_instance['labels'];
+    $instance['values'] = $new_instance['values'];
+    $instance['colors'] = $new_instance['colors'];
+    $instance['bordercolors'] = $new_instance['bordercolors'];
+    $instance['borderwidth'] = $new_instance['borderwidth'];
+    $instance['type'] = $new_instance['type'];
+
+    return $instance;
+  }
+
+  // Paramètres dans l’administration
+  function form($instance) {
+    $width = esc_attr($instance['width']);
+    $height = esc_attr($instance['height']);
+    $chartlabel = esc_attr($instance['chartlabel']);
+    $labels = esc_attr($instance['labels']);
+    $values = esc_attr($instance['values']);
+    $colors = esc_attr($instance['colors']);
+    $bordercolors = esc_attr($instance['bordercolors']);
+    $borderwidth = esc_attr($instance['borderwidth']);
+    $type = esc_attr($instance['type']);
+
+?>
+<!-- Width -->
+<p>
+  <label for="<?php echo $this->get_field_id('width'); ?>">
+    <?php echo 'Width:'; ?>
+    <input class="widefat"
+      id="<?php echo $this->get_field_id('width'); ?>"
+      name="<?php echo $this->get_field_name('width'); ?>"
+      type="text"
+      placeholder="400"
+      value="<?php echo $width; ?>" />
+  </label>
+</p>
+<!-- Height -->
+<p>
+  <label for="<?php echo $this->get_field_id('height'); ?>">
+    <?php echo 'Height:'; ?>
+    <input class="widefat"
+      id="<?php echo $this->get_field_id('height'); ?>"
+      name="<?php echo $this->get_field_name('height'); ?>"
+      type="text"
+      placeholder="400"
+      value="<?php echo $height; ?>" />
+  </label>
+</p>
+<!-- Chart label -->
+<p>
+  <label for="<?php echo $this->get_field_id('chartlabel'); ?>">
+    <?php echo 'Chart label:'; ?>
+    <input class="widefat"
+      id="<?php echo $this->get_field_id('chartlabel'); ?>"
+      name="<?php echo $this->get_field_name('chartlabel'); ?>"
+      type="text"
+      placeholder="Chart label"
+      value="<?php echo $chartlabel; ?>" />
+  </label>
+</p>
+<!-- Labels -->
+<p>
+  <label for="<?php echo $this->get_field_id('labels'); ?>">
+    <?php echo 'Labels:'; ?>
+    <input class="widefat"
+      id="<?php echo $this->get_field_id('labels'); ?>"
+      name="<?php echo $this->get_field_name('labels'); ?>"
+      type="text"
+      placeholder="'Label 1','Label 2'"
+      value="<?php echo $labels; ?>" />
+  </label>
+</p>
+<!-- Values -->
+<p>
+  <label for="<?php echo $this->get_field_id('values'); ?>">
+    <?php echo 'Values:'; ?>
+    <input class="widefat"
+      id="<?php echo $this->get_field_id('values'); ?>"
+      name="<?php echo $this->get_field_name('values'); ?>"
+      type="text"
+      placeholder="<?= rand(10, 50) . "," . rand(10, 50) ?>"
+      value="<?php echo $values; ?>" />
+  </label>
+</p>
+<!-- Colors -->
+<p>
+  <label for="<?php echo $this->get_field_id('colors'); ?>">
+    <?php echo 'Colors:'; ?>
+    <input class="widefat"
+      id="<?php echo $this->get_field_id('colors'); ?>"
+      name="<?php echo $this->get_field_name('colors'); ?>"
+      type="text"
+      placeholder="<?= randomColor(.2) . "," . randomColor(.2) ?>"
+      value="<?php echo $colors; ?>" />
+  </label>
+</p>
+<!-- Border Colors -->
+<p>
+  <label for="<?php echo $this->get_field_id('bordercolors'); ?>">
+    <?php echo 'Border colors:'; ?>
+    <input class="widefat"
+      id="<?php echo $this->get_field_id('bordercolors'); ?>"
+      name="<?php echo $this->get_field_name('bordercolors'); ?>"
+      type="text"
+      placeholder="<?= randomColor() . "," . randomColor() ?>"
+      value="<?php echo $bordercolors; ?>" />
+  </label>
+</p>
+<!-- Border Width -->
+<p>
+  <label for="<?php echo $this->get_field_id('borderwidth'); ?>">
+    <?php echo 'Border width:'; ?>
+    <input class="widefat"
+      id="<?php echo $this->get_field_id('borderwidth'); ?>"
+      name="<?php echo $this->get_field_name('borderwidth'); ?>"
+      type="text"
+      placeholder="2"
+      value="<?php echo $borderwidth; ?>" />
+  </label>
+</p>
+<!-- Type -->
+<p>
+  <label for="<?php echo $this->get_field_id('type'); ?>">
+    <?php echo 'Chart Type:'; ?>
+    <select id="<?php echo $this->get_field_id('type'); ?>"
+      name="<?php echo $this->get_field_name('type'); ?>"
+      class="widefat">
+      <option value="bar">Bar chart</option>
+      <option value="line">Line chart</option>
+      <option value="doughnut">Doughtnut chart</option>
+      <option value="pie">Pie chart</option>
+      <option value="polarArea">Area chart</option>
+    </select>
+  </label>
+</p>
+
+<?php
+
+  }
+
+  // Fin du widget
+}
+
+
 // Utils
 function generateRandomString($length = 10) {
   $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
