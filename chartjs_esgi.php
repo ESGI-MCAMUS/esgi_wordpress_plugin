@@ -73,7 +73,10 @@ function chartJS_ESGI_page() {
 <p><code> ]</code></p>
 <p>&nbsp;</p>
 <h3>Usage with widgets</h3>
-<p>TODO</p>
+<p>First you need to go to widgets page (in the admin menu : <code>Appearance\Widgets</code>).</p>
+<p>Then you will find a widget called <code>ChartJS ESGI</code>. Just drag and drop it wherever you want to use it.</p>
+<p>Click on the dropdown menu and set it up.</p>
+<p>You can now save it and check on your web page the modifications.&nbsp;&nbsp;</p>
 </div>";
 }
 
